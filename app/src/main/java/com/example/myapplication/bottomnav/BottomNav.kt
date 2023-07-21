@@ -33,6 +33,7 @@ import com.example.myapplication.ui.theme.dark_grey
 
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import com.example.myapplication.HomeViewModel
 
 @Composable
 fun BottomNavigation(navController: NavController) {
@@ -79,10 +80,10 @@ fun BottomNavigation(navController: NavController) {
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(navController: NavHostController, viewModel: HomeViewModel) {
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
         composable(BottomNavItem.Home.screen_route) {
-            HomeScreen()
+            HomeScreen(viewModel)
         }
         composable(BottomNavItem.Vehicle.screen_route) {
             DefaultScreen(BottomNavItem.Vehicle.title)
@@ -99,11 +100,6 @@ fun NavigationGraph(navController: NavHostController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun BottomNavigationPreview() {
-    MainScreenView()
-}
 
 @Composable
 fun DefaultScreen(pageName: String) {

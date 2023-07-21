@@ -1,6 +1,8 @@
 package com.example.myapplication
 
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,26 +14,41 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarResult
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.main_BG
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
-@Preview(showBackground = true)
-@Preview(device = Devices.FOLDABLE, showBackground = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: HomeViewModel) {
+
+    val lockState = viewModel.lockState
+
 
     Box(modifier = Modifier.fillMaxSize().background(color = main_BG)) {
         Image(
@@ -70,16 +87,81 @@ fun HomeScreen() {
         }
 
 
-        var selectedTab by remember { mutableStateOf(MainItem.Unlock) }
+        var selectedTab by remember { mutableStateOf(MainItem.Lock) }
+        val openDialog = remember { mutableStateOf(false) }
 
-        Row(modifier = Modifier.fillMaxWidth().offset(y = 328.dp)) {
 
-            MainItemsTab(
-                onTabSelected = { selectedTab = it },
-                selectedTab = selectedTab,
-            )
+        val context = LocalContext.current
+
+
+        when (lockState.value) {
+            LockState.LOCKED -> {}
+            LockState.LOADING -> {
+                LaunchedEffect(Unit) {
+                    showMessage(context, "Waking ARIYA to unlock...")
+                    delay(5000L)
+                    viewModel.changeLock(LockState.UNLOCK)
+                    showMessage(context, "ARIYA unlocked")
+                }
+            }
+
+            LockState.UNLOCK -> {}
         }
 
+        Row(
+            modifier = Modifier.fillMaxWidth().offset(y = 328.dp).padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            MainItem.values().forEachIndexed { index, mainItem ->
+                val selected = index == selectedTab.ordinal
+                val loading =
+                    lockState.value.toString() == LockState.LOADING.name && (mainItem == MainItem.Unlock)
+                MainItemBotton(
+                    mainItem = mainItem,
+                    selected = selected,
+                    onTabSelected = { it ->
+                        run {
+                            if (it == MainItem.Unlock) {
+                                openDialog.value = true
+                            } else {
+                                selectedTab = it
+                            }
+                        }
+                    },
+                    index = index,
+                    loading = loading,
+
+                    )
+            }
+        }
+
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = { openDialog.value = false },
+                title = { Text(text = "Are you sure?") },
+                text = { Text("This action will remotely unlock your vehicle. ") },
+                confirmButton = {
+                    Button(onClick = {
+                        openDialog.value = false
+                        selectedTab = MainItem.Unlock
+                        viewModel.changeLock(LockState.LOADING)
+                    })
+                    {
+                        Text("Yes")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { openDialog.value = false }) {
+                        Text("No")
+                    }
+                },
+            )
+        }
     }
 
+}
+
+
+fun showMessage(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
