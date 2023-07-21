@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="Lock">Lock</string>
+    <string name="Unlock">Unlock</string>
+    <string name="Climate">Climate</string>
+    <string name="Charge">Charge</string>
+    <string name="Lights">Lights</string>
+
+
+
 </resources>
