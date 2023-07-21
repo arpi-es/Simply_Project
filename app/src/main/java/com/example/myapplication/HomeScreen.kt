@@ -20,14 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.MainItem
-import com.example.myapplication.ui.MainItemsTab
 import com.example.myapplication.ui.theme.main_BG
 
 
@@ -45,11 +42,11 @@ fun HomeScreen() {
             alignment = Alignment.TopStart
         )
 
-
-
-        Row(modifier = Modifier.fillMaxWidth().offset(y = 153.dp),
+        Row(
+            modifier = Modifier.fillMaxWidth().offset(y = 153.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End) {
+            horizontalArrangement = Arrangement.End
+        ) {
             Image(
                 painter = painterResource(R.drawable.car),
                 contentDescription = null,
@@ -61,12 +58,12 @@ fun HomeScreen() {
         }
 
 
-        Column( modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.height(24.dp))
-            HomeScreenHeader( Modifier.fillMaxSize() )
+            HomeScreenHeader(Modifier.fillMaxSize())
 
             Spacer(modifier = Modifier.height(24.dp))
-            HomeScreenInfo( Modifier.fillMaxSize())
+            HomeScreenInfo(Modifier.fillMaxSize())
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -82,50 +79,6 @@ fun HomeScreen() {
                 selectedTab = selectedTab,
             )
         }
-
-
-
-//        Row( modifier = Modifier.fillMaxWidth().offset(y = 328.dp) ){
-//
-//                Column(
-//                    modifier = Modifier.padding(5.dp),
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                    verticalArrangement = Arrangement.Center
-//                ) {
-//                    OutlinedButton(onClick = { },
-//                        modifier= Modifier.size(50.dp),  //avoid the oval shape
-//                        shape = CircleShape,
-//                        border= BorderStroke(2.dp, dark_grey),
-//                        contentPadding = PaddingValues(0.dp),  //avoid the little icon
-//                        colors = ButtonDefaults.outlinedButtonColors(contentColor =  dark_grey)
-//                    )
-//                    {
-//                        Image(
-//                            painter = painterResource(id = R.drawable.ic_support),
-//                            contentDescription = "Image",
-//                        )
-//                    }
-//
-//
-//                    Text(
-//                        "Android",
-//                        style = TextStyle(
-//                            fontSize = 12.sp,
-//                            color = dark_grey
-//                        ),
-//                        textAlign = TextAlign.Center
-//                    )
-//
-//                }
-//
-//        }
-
-
-
-
-
-
-
 
     }
 

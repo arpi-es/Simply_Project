@@ -1,4 +1,4 @@
-package com.example.myapplication.ui
+package com.example.myapplication
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -30,7 +30,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
 import com.example.myapplication.ui.theme.active_blue_dark
 import com.example.myapplication.ui.theme.dark_grey
 import com.example.myapplication.ui.theme.primary_black
@@ -54,7 +53,8 @@ fun MainItemsTab(
         modifier = modifier,
         selectedTabIndex = selectedTab.ordinal,
         containerColor = Color.Transparent,
-        indicator = { tabPositions: List<TabPosition> ->
+        indicator = {
+                tabPositions: List<TabPosition> ->
             Box(
                 Modifier
                     .tabIndicatorOffset(tabPositions[selectedTab.ordinal])
@@ -84,17 +84,20 @@ private fun MainItemText(
     index: Int,
     onTabSelected: (MainItem) -> Unit,
 ) {
-//    Tab(
-//        modifier = Modifier
-//            .padding(horizontal = 2.dp)
-//            .clip(RoundedCornerShape(50.dp)),
-//        selected = selected,
-//        unselectedContentColor = dark_grey,
-//        selectedContentColor = primary_black,
-//        onClick = {
-//            onTabSelected(MainItem.values()[index])
-//        }
-//    ) {
+    Tab(
+        modifier = Modifier
+            .padding(horizontal = 2.dp)
+            .clip(RoundedCornerShape(50.dp)),
+        selected = selected,
+        unselectedContentColor = dark_grey,
+        selectedContentColor = primary_black,
+        onClick = {
+            if (index < 2 ){
+                onTabSelected(MainItem.values()[index])
+            }
+
+        }
+    ) {
 
         Column(
             modifier = Modifier.padding(5.dp),
@@ -103,12 +106,16 @@ private fun MainItemText(
         ) {
 
             OutlinedButton(
-                onClick = { },
+                onClick = {
+                    if (index < 2 ){
+                        onTabSelected(MainItem.values()[index])
+                    }
+                },
                 modifier = Modifier.size(50.dp),  //avoid the oval shape
                 shape = CircleShape,
-                border = BorderStroke(2.dp, dark_grey),
+                border = BorderStroke(2.dp, primary_black),
                 contentPadding = PaddingValues(0.dp),  //avoid the little icon
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = dark_grey)
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = primary_black)
             )
             {
                 Image(
@@ -122,12 +129,12 @@ private fun MainItemText(
                 text = stringResource(id = mainItem.title),
                 style = TextStyle(
                     fontSize = 12.sp,
-                    color = dark_grey
+                    color = primary_black
                 ),
                 textAlign = TextAlign.Center
             )
 
         }
 
-//    }
+    }
 }

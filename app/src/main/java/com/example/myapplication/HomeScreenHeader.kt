@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,18 +47,37 @@ fun HomeScreenHeader(modifier: Modifier = Modifier) {
                 .padding(start = 28.dp)
         )
 
-        Text(
-            "MY NISSAN ARIYA",
-            style = TextStyle(
-                fontSize = 16.sp,
-            ),
-            textAlign = TextAlign.Center,
+//        Text(
+//            "MY NISSAN ARIYA",
+//            style = TextStyle(
+//                fontSize = 16.sp,
+//            ),
+//            textAlign = TextAlign.Center,
+//            modifier = Modifier.weight(1f),
+//
+//        )
+
+        Row(
             modifier = Modifier.weight(1f),
-        )
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.small_lock),
+                contentDescription = "small_lock"
+            )
+            Text(
+                "MY NISSAN ARIYA",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                ),
+                textAlign = TextAlign.Center
+            )
+        }
 
         Icon(
             painter = painterResource(R.drawable.notification),
-            contentDescription = "support",
+            contentDescription = "notification",
             modifier = Modifier
                 .padding(end = 28.dp)
 
@@ -71,12 +91,11 @@ fun HomeScreenHeader(modifier: Modifier = Modifier) {
 fun HomeScreenInfo(modifier: Modifier = Modifier) {
 
 
-
     Row(
         modifier = modifier.fillMaxWidth().padding(start = 28.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
 
-    ) {
+        ) {
         Column {
             Text(
                 "Est. Range",
@@ -85,19 +104,30 @@ fun HomeScreenInfo(modifier: Modifier = Modifier) {
                     color = dark_grey
                 )
             )
-            Text(
-                "120",
-                style = TextStyle(
-                    fontSize = 40.sp,
-                    color = primary_black
-                )
-            )
 
-            Row( verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    "120",
+                    style = TextStyle(
+                        fontSize = 40.sp,
+                        color = primary_black
+                    )
+                )
+
+                Text(
+                    "mi",
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        color = primary_black
+                    )
+                )
+            }
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Icon(
                     painter = painterResource(R.drawable.cloud),
-                    contentDescription = "support",
+                    contentDescription = "cloud",
                     modifier = Modifier
                         .padding(end = 4.dp)
 
@@ -107,12 +137,12 @@ fun HomeScreenInfo(modifier: Modifier = Modifier) {
                     "70° • Irvine, CA",
                     modifier = Modifier.weight(1f),
                     style = TextStyle(
-                        fontSize = 14.sp,),
+                        fontSize = 14.sp,
+                    ),
                 )
 
 
             }
-
 
 
         }
