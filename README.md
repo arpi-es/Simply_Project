@@ -1,7 +1,7 @@
 # Simply_Project
 
-Kotlin
-Jetpack compose
-MVVM architecture
+Kotlin | 
+Jetpack compose |
+MVVM architecture |
 
 
