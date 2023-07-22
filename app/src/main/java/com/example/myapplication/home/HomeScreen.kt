@@ -2,6 +2,7 @@ package com.example.myapplication.home
 
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -76,34 +77,25 @@ fun HomeScreen(viewModel: HomeViewModel) {
         }
 
 
-        var selectedTab by remember { mutableStateOf(MainItem.Lock) }
+        var selectedTab by remember { mutableStateOf(if (lockState.value == LockState.LOCKED) MainItem.Lock else MainItem.Unlock) }
         val openDialog = remember { mutableStateOf(false) }
-
-
         val context = LocalContext.current
 
 
-        when (lockState.value) {
-            LockState.LOCKED -> {}
-            LockState.LOADING -> {
-                LaunchedEffect(Unit) {
-                    showMessage(context, "Waking ARIYA to unlock...")
-                    delay(5000L)
-                    viewModel.changeLock(LockState.UNLOCK)
-                    showMessage(context, "ARIYA unlocked")
-                }
-            }
-
-            LockState.UNLOCK -> {}
-        }
 
         Row(
             modifier = Modifier.fillMaxWidth().offset(y = 328.dp).padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             MainItem.values().forEachIndexed { index, mainItem ->
+
+                /* defines selected tab */
                 val selected = index == selectedTab.ordinal
-                val loading = lockState.value.toString() == LockState.LOADING.name
+
+                /* check if its in loading mode */
+                val loading = lockState.value == LockState.LOADING
+
+                /* Show loading only for unlock tab if in loading mode */
                 val showLoader  = loading && (mainItem == MainItem.Unlock)
 
                 MainItemBotton(
@@ -111,16 +103,21 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     selected = selected,
                     onTabSelected = { it ->
                         run {
-                            if (it == MainItem.Unlock) {
-                                openDialog.value = true
-                            } else {
+                            /* prevent from clicking while loading */
+                            if (!loading) {
+                                when (it) {
+                                    MainItem.Lock -> {
+                                        viewModel.changeLock(LockState.LOCKED)
+                                        selectedTab = it
+                                    }
 
-                                // prevent from clicking while loading
-                                if (!loading) {
-                                    selectedTab = it
+                                    MainItem.Unlock -> {
+                                        openDialog.value = true
+                                    }
+                                    else -> {}
                                 }
-
                             }
+
                         }
                     },
                     index = index,
@@ -151,8 +148,23 @@ fun HomeScreen(viewModel: HomeViewModel) {
                 },
             )
         }
-    }
 
+
+        when (lockState.value) {
+
+            LockState.LOADING -> {
+                LaunchedEffect(Unit) {
+                    showMessage(context, "Waking ARIYA to unlock...")
+                    delay(5000L)
+                    viewModel.changeLock(LockState.UNLOCK)
+                    showMessage(context, "ARIYA unlocked")
+                }
+            }
+            LockState.LOCKED -> {}
+            LockState.UNLOCK -> {}
+        }
+
+    }
 }
 
 

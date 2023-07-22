@@ -52,8 +52,9 @@ fun MainItemBotton(
             .clickable(
                 enabled = !selected,
                 onClick = {
+                    // disable
                     if (index < 2) {
-                        onTabSelected(MainItem.values()[index])
+                        onTabSelected(mainItem)
                     }
                 }
             ) ,
