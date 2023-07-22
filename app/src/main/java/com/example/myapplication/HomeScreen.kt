@@ -114,8 +114,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
         ) {
             MainItem.values().forEachIndexed { index, mainItem ->
                 val selected = index == selectedTab.ordinal
-                val loading =
-                    lockState.value.toString() == LockState.LOADING.name && (mainItem == MainItem.Unlock)
+                val loading = lockState.value.toString() == LockState.LOADING.name
+                val showLoader  = loading && (mainItem == MainItem.Unlock)
+
                 MainItemBotton(
                     mainItem = mainItem,
                     selected = selected,
@@ -124,13 +125,17 @@ fun HomeScreen(viewModel: HomeViewModel) {
                             if (it == MainItem.Unlock) {
                                 openDialog.value = true
                             } else {
-                                selectedTab = it
+
+                                // prevent from clicking while loading
+                                if (!loading) {
+                                    selectedTab = it
+                                }
+
                             }
                         }
                     },
                     index = index,
-                    loading = loading,
-
+                    loading = showLoader,
                     )
             }
         }

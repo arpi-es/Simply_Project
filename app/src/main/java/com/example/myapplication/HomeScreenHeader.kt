@@ -16,10 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.ui.theme.NissanFontFamily
 import com.example.myapplication.ui.theme.dark_grey
 import com.example.myapplication.ui.theme.primary_black
 
@@ -55,6 +57,7 @@ fun HomeScreenHeader(modifier: Modifier = Modifier) {
                 style = TextStyle(
                     fontSize = 16.sp,
                 ),
+                fontFamily = NissanFontFamily,
                 textAlign = TextAlign.Center
             )
         }
@@ -89,13 +92,16 @@ fun HomeScreenInfo(modifier: Modifier = Modifier) {
                 )
             )
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     "120",
                     style = TextStyle(
                         fontSize = 40.sp,
                         color = primary_black
-                    )
+                    ),
+                    fontWeight = FontWeight.Bold,
+
+                    modifier = Modifier.alignByBaseline()
                 )
 
                 Text(
@@ -103,7 +109,9 @@ fun HomeScreenInfo(modifier: Modifier = Modifier) {
                     style = TextStyle(
                         fontSize = 18.sp,
                         color = primary_black
-                    )
+                    ),
+
+                    modifier = Modifier.alignByBaseline().padding(start = 4.dp)
                 )
             }
 
