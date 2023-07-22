@@ -116,7 +116,8 @@ fun HomeScreenInfo(modifier: Modifier = Modifier) {
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically,
+            modifier =Modifier.padding(top = 20.dp)) {
 
                 Icon(
                     painter = painterResource(R.drawable.cloud),

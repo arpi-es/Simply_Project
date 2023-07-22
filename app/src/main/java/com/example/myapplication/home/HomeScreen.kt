@@ -71,11 +71,8 @@ fun HomeScreen(viewModel: HomeViewModel) {
             Spacer(modifier = Modifier.height(24.dp))
             HomeScreenHeader(Modifier.fillMaxSize())
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             HomeScreenInfo(Modifier.fillMaxSize())
-
-            Spacer(modifier = Modifier.height(24.dp))
-
         }
 
 
