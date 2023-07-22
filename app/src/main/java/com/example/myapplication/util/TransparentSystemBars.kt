@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.util
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable

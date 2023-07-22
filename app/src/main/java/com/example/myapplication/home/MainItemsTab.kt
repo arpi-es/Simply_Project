@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 import com.example.myapplication.ui.theme.active_blue_dark
 import com.example.myapplication.ui.theme.dark_grey
 import com.example.myapplication.ui.theme.primary_black

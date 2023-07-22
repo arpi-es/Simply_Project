@@ -18,7 +18,9 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.bottomnav.BottomNavigation
 import com.example.myapplication.bottomnav.NavigationGraph
+import com.example.myapplication.home.HomeViewModel
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.util.TransparentSystemBars
 
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +37,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .systemBarsPadding(),
 
-                ) {
+                    ) {
                     MainScreenView(viewModel = viewModel)
                 }
             }
@@ -46,14 +48,13 @@ class MainActivity : ComponentActivity() {
 @Suppress("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreenView(viewModel: HomeViewModel){
+fun MainScreenView(viewModel: HomeViewModel) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigation(navController = navController) }
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .padding(0.dp)
+            modifier = Modifier.padding(0.dp)
         ) {
             NavigationGraph(navController = navController, viewModel = viewModel)
         }

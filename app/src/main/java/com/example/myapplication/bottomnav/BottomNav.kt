@@ -17,7 +17,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -25,15 +24,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myapplication.HomeScreen
-import com.example.myapplication.MainScreenView
+import com.example.myapplication.home.HomeScreen
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.active_blue_dark
 import com.example.myapplication.ui.theme.dark_grey
 
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import com.example.myapplication.HomeViewModel
+import com.example.myapplication.home.HomeViewModel
 
 @Composable
 fun BottomNavigation(navController: NavController) {
@@ -100,7 +98,7 @@ fun NavigationGraph(navController: NavHostController, viewModel: HomeViewModel) 
     }
 }
 
-
+// Just a en empty screen
 @Composable
 fun DefaultScreen(pageName: String) {
     Column(
