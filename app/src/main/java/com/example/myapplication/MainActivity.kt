@@ -24,7 +24,6 @@ import com.example.myapplication.util.TransparentSystemBars
 
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class MainActivity : ComponentActivity() {
                         .systemBarsPadding(),
 
                     ) {
-                    MainScreenView(viewModel = viewModel)
+                    MainScreenView()
                 }
             }
         }
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
 @Suppress("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreenView(viewModel: HomeViewModel) {
+fun MainScreenView() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigation(navController = navController) }
@@ -56,7 +55,7 @@ fun MainScreenView(viewModel: HomeViewModel) {
         Box(
             modifier = Modifier.padding(0.dp)
         ) {
-            NavigationGraph(navController = navController, viewModel = viewModel)
+            NavigationGraph(navController = navController)
         }
     }
 }
